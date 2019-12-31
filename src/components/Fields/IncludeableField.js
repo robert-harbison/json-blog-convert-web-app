@@ -1,12 +1,9 @@
 import React, { Component } from "react";
-import RichTextEditor from "react-rte";
 import FieldContainer from "./FieldContainer";
-import styled from "styled-components";
 import PropTypes from "prop-types";
 
 export default class IncludeableField extends Component {
   state = {
-    shouldIncludeChecked: true,
     inputValue: ""
   };
 
@@ -37,24 +34,10 @@ export default class IncludeableField extends Component {
           onChange={this.onTextChange}
           value={this.state.inputValue}
         ></input>
-        <label>
-          <CheckboxLabel />
-          <input
-            type="checkbox"
-            name={this.props.fieldName + "-should-include"}
-            checked={this.state.shouldIncludeChecked}
-            onChange={this.onIncludeChange}
-          />
-          Include This Field
-        </label>
       </FieldContainer>
     );
   }
 }
-
-const CheckboxLabel = styled.label`
-  display: ${props => (props.shouldInclude ? "block" : "none")};
-`;
 
 IncludeableField.defaultProps = {
   shouldinclude: true
@@ -63,7 +46,5 @@ IncludeableField.defaultProps = {
 IncludeableField.propTypes = {
   fieldname: PropTypes.string.isRequired,
   placeholder: PropTypes.string.isRequired,
-  shouldinclude: PropTypes.bool,
-  ontextchange: PropTypes.func,
-  onincludechange: PropTypes.func
+  ontextchange: PropTypes.func
 };

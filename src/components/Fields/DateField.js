@@ -1,5 +1,4 @@
-import React, { Component, Fragment } from "react";
-import RichTextEditor from "react-rte";
+import React, { Component } from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 import DatePicker from "react-datepicker";
@@ -9,7 +8,6 @@ import "react-datepicker/dist/react-datepicker.css";
 // TODO: Create base class for these field classes that have a include.
 export default class DateField extends Component {
   state = {
-    shouldIncludeChecked: true,
     inputValue: new Date()
   };
 
@@ -39,24 +37,10 @@ export default class DateField extends Component {
           selected={this.state.inputValue}
           onChange={this.onDateChange}
         />
-        <label>
-          <CheckboxLabel />
-          <input
-            type="checkbox"
-            name={this.props.fieldName + "-should-include"}
-            checked={this.state.shouldIncludeChecked}
-            onChange={this.onIncludeChange}
-          />
-          Include This Field
-        </label>
       </FieldContainer>
     );
   }
 }
-
-const CheckboxLabel = styled.label`
-  display: ${props => (props.shouldInclude ? "block" : "none")};
-`;
 
 const StyledDatePicker = styled(DatePicker)`
   z-index: 1000;
@@ -69,7 +53,5 @@ DateField.defaultProps = {
 DateField.propTypes = {
   fieldname: PropTypes.string.isRequired,
   placeholder: PropTypes.string.isRequired,
-  shouldinclude: PropTypes.bool,
-  ondatechange: PropTypes.func,
-  onincludechange: PropTypes.func
+  ondatechange: PropTypes.func
 };

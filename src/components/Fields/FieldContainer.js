@@ -1,6 +1,4 @@
-import React, { Component, Fragment } from "react";
-import RichTextEditor from "react-rte";
-import styled from "styled-components";
+import React, { Component } from "react";
 import PropTypes from "prop-types";
 
 export default class FieldContainer extends Component {

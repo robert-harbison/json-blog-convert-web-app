@@ -1,33 +1,74 @@
-import React, { Component, useEffect } from "react";
-import RichTextEditor from "react-rte";
+import React, { Component } from "react";
 import styled from "styled-components";
-import PropTypes from "prop-types";
 import FieldContainer from "./FieldContainer";
-import { useSelector, connect } from "react-redux";
+import { connect } from "react-redux";
 
 export default connect(mapStateToProps)(
   class ResultField extends Component {
-    constructor(props) {
-      super(props);
-    }
-
     generateJSON() {
+      // Which lines are included?
+      let includePostID = this.props.state.data.postID;
+      let includePostTitle = this.props.state.data.postTitle;
+      let includePostAuthor = this.props.state.data.postAuthor;
+      let includePostDate = this.props.state.data.postDate;
+      let includePostContent =
+        this.props.state.data.postContent !== "<p><br></p>";
+
+      // Ecludes the { and } lines at the top and bottom. Basiccally total lines - 2
+      let totalLines = 0;
       let json = "{\n";
+      let currentLine = 0; // 1 because we created the first line above.
 
-      if (this.props.state.data.postID !== "")
-        json += '\tid: "' + this.props.state.data.postID + '"\n';
+      // Counts the total lines.
+      if (includePostID) totalLines++;
+      if (includePostTitle) totalLines++;
+      if (includePostAuthor) totalLines++;
+      if (includePostDate) totalLines++;
+      if (includePostContent) totalLines++;
 
-      if (this.props.state.data.postTitle !== "")
-        json += '\ttitle: "' + this.props.state.data.postTitle + '"\n';
+      if (includePostID) {
+        currentLine++;
+        json +=
+          '\tid: "' +
+          this.props.state.data.postID +
+          '"' +
+          (currentLine < totalLines ? "," : "") +
+          "\n";
+      }
 
-      if (this.props.state.data.postAuthor !== "")
-        json += '\tauthor: "' + this.props.state.data.postAuthor + '"\n';
+      if (includePostTitle) {
+        currentLine++;
+        json +=
+          '\ttitle: "' +
+          this.props.state.data.postTitle +
+          '"' +
+          (currentLine < totalLines ? "," : "") +
+          "\n";
+      }
 
-      if (this.props.state.data.postDate !== "")
-        json += '\tdate: "' + this.props.state.data.postDate + '"\n';
+      if (includePostAuthor) {
+        currentLine++;
+        json +=
+          '\tauthor: "' +
+          this.props.state.data.postAuthor +
+          '"' +
+          (currentLine < totalLines ? "," : "") +
+          "\n";
+      }
 
-      if (this.props.state.data.postContent !== "")
+      if (includePostDate) {
+        currentLine++;
+        json +=
+          '\tdate: "' +
+          this.props.state.data.postDate +
+          '"' +
+          (currentLine < totalLines ? "," : "") +
+          "\n";
+      }
+
+      if (includePostContent) {
         json += '\tcontent: "' + this.props.state.data.postContent + '"\n';
+      }
 
       json += "}";
       return json;
@@ -39,10 +80,8 @@ export default connect(mapStateToProps)(
         // TODO: Make tab size smaller so it looks better.
         // TODO: Mutliline content text doesnt get tabbed in.
         <FieldContainer title="Result:">
-          {/* <StyledEditor readOnly={true} value={this.state.resultValue} /> */}
           <StyledEditor readOnly={true} value={json}></StyledEditor>
-          {/* Add copy to clipboard button
-           */}
+          {/* TODO: Add copy to clipboard button */}
         </FieldContainer>
       );
     }
@@ -57,6 +96,5 @@ const StyledEditor = styled.textarea`
 function mapStateToProps(state, ownProps) {
   return {
     state: state
-    // result: state.data.result
   };
 }

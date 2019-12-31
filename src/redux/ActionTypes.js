@@ -1,3 +1,6 @@
+/**
+ * Action types for the main data reducer.
+ */
 export const SET_POST_ID = "SET_POST_ID";
 export const SET_POST_TITLE = "SET_POST_TITLE";
 export const SET_POST_AUTHOR = "SET_POST_AUTHOR";

@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 import RichTextEditor from "react-rte";
 import styled from "styled-components";
 import PropTypes from "prop-types";
