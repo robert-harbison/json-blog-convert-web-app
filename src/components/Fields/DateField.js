@@ -11,22 +11,22 @@ export default class DateField extends Component {
     inputValue: new Date()
   };
 
-  onIncludeChange = value => {
-    this.setState({ shouldIncludeChecked: value.checked });
-    // Passs the onChange up to the parent if it has one.
-    if (this.props.onincludechange) {
-      // TODO: Try not to generate a new string on each change.
-      this.props.onincludechange(value.checked);
-    }
-  };
+  constructor(props) {
+    super(props);
+    props.onChange(this.state.inputValue.toDateString());
+  }
 
-  onDateChange = value => {
+  onChange = value => {
     this.setState({
       inputValue: value
     });
     // Passs the onChange up to the parent if it has one.
-    if (this.props.onDateChange) {
-      this.props.ondatechange(value.value);
+    if (this.props.onChange) {
+      if (value !== null) {
+        this.props.onChange(value.toDateString()); // TODO: Option for local date value.toLocaleDateString()
+      } else {
+        this.props.onChange("");
+      }
     }
   };
 
@@ -35,7 +35,7 @@ export default class DateField extends Component {
       <FieldContainer title={this.props.placeholder + ":"}>
         <StyledDatePicker
           selected={this.state.inputValue}
-          onChange={this.onDateChange}
+          onChange={this.onChange}
         />
       </FieldContainer>
     );
@@ -51,7 +51,7 @@ DateField.defaultProps = {
 };
 
 DateField.propTypes = {
-  fieldname: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
   placeholder: PropTypes.string.isRequired,
-  ondatechange: PropTypes.func
+  onChange: PropTypes.func
 };

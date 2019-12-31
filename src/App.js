@@ -42,26 +42,26 @@ function App() {
   return (
     <div className="App">
       <IncludeableField
-        ontextchange={onPostIDChange}
-        fieldname="post-id"
+        onChange={onPostIDChange}
+        name="post-id"
         placeholder="Post ID"
       ></IncludeableField>
 
       <IncludeableField
-        ontextchange={onPostTitleChange}
-        fieldname="post-title"
+        onChange={onPostTitleChange}
+        name="post-title"
         placeholder="Post Title"
       ></IncludeableField>
 
       <IncludeableField
-        ontextchange={onPostAuthorChange}
-        fieldname="author"
+        onChange={onPostAuthorChange}
+        name="author"
         placeholder="Author"
       ></IncludeableField>
 
       <DateField
-        ontextchange={onPostDateChange}
-        fieldname="date-written"
+        onChange={onPostDateChange}
+        name="date-written"
         placeholder="Date Written"
       ></DateField>
 

@@ -7,20 +7,11 @@ export default class IncludeableField extends Component {
     inputValue: ""
   };
 
-  onIncludeChange = value => {
-    this.setState({ shouldIncludeChecked: value.target.checked });
-    // Passs the onChange up to the parent if it has one.
-    if (this.props.onincludechange) {
-      // TODO: Try not to generate a new string on each change.
-      this.props.onincludechange(value.target.checked);
-    }
-  };
-
-  onTextChange = value => {
+  onChange = value => {
     this.setState({ inputValue: value.target.value });
     // Passs the onChange up to the parent if it has one.
-    if (this.props.ontextchange) {
-      this.props.ontextchange(value.target.value);
+    if (this.props.onChange) {
+      this.props.onChange(value.target.value);
     }
   };
 
@@ -29,9 +20,9 @@ export default class IncludeableField extends Component {
       <FieldContainer title={this.props.placeholder + ":"}>
         <input
           type="text"
-          name={this.props.fieldname}
+          name={this.props.name}
           placeholder={this.props.placeholder}
-          onChange={this.onTextChange}
+          onChange={this.onChange}
           value={this.state.inputValue}
         ></input>
       </FieldContainer>
@@ -44,7 +35,7 @@ IncludeableField.defaultProps = {
 };
 
 IncludeableField.propTypes = {
-  fieldname: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
   placeholder: PropTypes.string.isRequired,
-  ontextchange: PropTypes.func
+  onChange: PropTypes.func
 };
