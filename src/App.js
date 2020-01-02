@@ -1,76 +1,29 @@
 import React from "react";
-import EditorField from "./components/Fields/EditorField";
-import ResultField from "./components/Fields/ResultField";
 
-import IncludeableField from "./components/Fields/IncludeableField";
-import DateField from "./components/Fields/DateField";
+import GeneratorForm from "./components/GeneratorForm";
+import Header from "./components/Header";
+import styled from "styled-components";
 
-import {
-  setPostID,
-  setPostTitle,
-  setPostAuthor,
-  setPostDate,
-  setPostContent
-} from "./redux/Actions";
-import { useDispatch } from "react-redux";
-
-let dispatch;
-
-function onPostIDChange(value) {
-  dispatch(setPostID(value));
+export default class App extends React.Component {
+  render() {
+    return (
+      <Container>
+        <Header />
+        <StyledGeneratorForm />
+      </Container>
+    );
+  }
 }
 
-function onPostTitleChange(value) {
-  dispatch(setPostTitle(value));
-}
+const Container = styled.div`
+  min-width: 440px;
+`;
 
-function onPostAuthorChange(value) {
-  dispatch(setPostAuthor(value));
-}
-
-function onPostDateChange(value) {
-  dispatch(setPostDate(value));
-}
-
-function onPostContentChange(value) {
-  dispatch(setPostContent(value));
-}
-
-function App() {
-  dispatch = useDispatch();
-
-  return (
-    <div className="App">
-      <IncludeableField
-        onChange={onPostIDChange}
-        name="post-id"
-        placeholder="Post ID"
-      ></IncludeableField>
-
-      <IncludeableField
-        onChange={onPostTitleChange}
-        name="post-title"
-        placeholder="Post Title"
-      ></IncludeableField>
-
-      <IncludeableField
-        onChange={onPostAuthorChange}
-        name="author"
-        placeholder="Author"
-      ></IncludeableField>
-
-      <DateField
-        onChange={onPostDateChange}
-        name="date-written"
-        placeholder="Date Written"
-      ></DateField>
-
-      {/* TODO: CHoice between html and markup */}
-
-      <EditorField onChange={onPostContentChange} />
-      <ResultField />
-    </div>
-  );
-}
-
-export default App;
+const StyledGeneratorForm = styled(GeneratorForm)`
+  max-width: 630px;
+  margin: 0 auto;
+  ${"" /* position: absolute;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%); */}
+`;

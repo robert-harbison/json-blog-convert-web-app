@@ -20,7 +20,7 @@ export default class EditorField extends Component {
 
   render() {
     return (
-      <FieldContainer title="Post Content:">
+      <FieldContainer title="Post Content:" className={this.props.className}>
         <StyledEditor value={this.state.editorValue} onChange={this.onChange} />
       </FieldContainer>
     );
@@ -33,5 +33,7 @@ EditorField.propTypes = {
 
 const StyledEditor = styled(RichTextEditor)`
   width: 650px;
-  min-height: 200px;
+  min-height: 400px;
+  border: 1px solid ${props => props.theme.fieldBorderColor};
+  border-radius: ${props => props.theme.fieldBorderRadius};
 `;

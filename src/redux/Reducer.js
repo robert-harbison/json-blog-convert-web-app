@@ -5,24 +5,12 @@ import {
   SET_POST_DATE,
   SET_POST_CONTENT
 } from "./ActionTypes";
-import { combineReducers } from "redux";
-import RichTextEditor from "react-rte";
-
-/**
- * Initial Redux state.
- */
-export const initialState = {
-  postID: "",
-  postTitle: "",
-  postAuthor: "",
-  postDate: "",
-  postContent: RichTextEditor.createEmptyValue().toString("html")
-};
+import { initialState } from "./Store";
 
 /**
  * Main data reducer.
  */
-const dataReducer = (state = initialState, action) => {
+const mainReducer = (state = initialState, action) => {
   switch (action.type) {
     case SET_POST_ID:
       return Object.assign({}, state, {
@@ -49,10 +37,4 @@ const dataReducer = (state = initialState, action) => {
   }
 };
 
-// Combined reducers.
-// TODO: Can convert this to one if its not going to be used.
-const allReducers = combineReducers({
-  data: dataReducer
-});
-
-export default allReducers;
+export default mainReducer;

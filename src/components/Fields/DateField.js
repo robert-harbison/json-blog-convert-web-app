@@ -2,19 +2,13 @@ import React, { Component } from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 import DatePicker from "react-datepicker";
-import FieldContainer from "./FieldContainer";
 import "react-datepicker/dist/react-datepicker.css";
 
 // TODO: Create base class for these field classes that have a include.
 export default class DateField extends Component {
   state = {
-    inputValue: new Date()
+    inputValue: ""
   };
-
-  constructor(props) {
-    super(props);
-    props.onChange(this.state.inputValue.toDateString());
-  }
 
   onChange = value => {
     this.setState({
@@ -32,18 +26,27 @@ export default class DateField extends Component {
 
   render() {
     return (
-      <FieldContainer title={this.props.placeholder + ":"}>
-        <StyledDatePicker
-          selected={this.state.inputValue}
-          onChange={this.onChange}
-        />
-      </FieldContainer>
+      // <FieldContainer title={this.props.placeholder + ":"}>
+      <StyledDatePicker
+        className={this.props.className}
+        placeholderText={this.props.placeholder}
+        selected={this.state.inputValue}
+        onChange={this.onChange}
+      />
+      // </FieldContainer>
     );
   }
 }
 
 const StyledDatePicker = styled(DatePicker)`
   z-index: 1000;
+  width: 630px;
+  height: 30px;
+  font-size: 14px;
+  border: 1px solid ${props => props.theme.fieldBorderColor};
+  border-radius: ${props => props.theme.fieldBorderRadius};
+  padding-left: 10px;
+  padding-right: 10px;
 `;
 
 DateField.defaultProps = {
