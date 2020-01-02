@@ -68,7 +68,7 @@ export default connect(mapStateToProps)(
       if (includePostContent) {
         json +=
           '\t"content": "' +
-          this.props.state.postContent.replace("\n", "\\n") +
+          this.props.state.postContent.replace(/(?:\r\n|\r|\n)/g, "\\n") +
           '"\n';
       }
 
